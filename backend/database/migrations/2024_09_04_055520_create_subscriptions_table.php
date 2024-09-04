@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('subscription_plan_id')->constrained('m_subscription_plans');
             $table->foreignId('tenant_id')->constrained('tenants');
-            $table->string('status', 10)->default('active');
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->date('next_billing_date');
+            $table->date('next_billing_date')->nullable();
             $table->timestamps();
         });
     }

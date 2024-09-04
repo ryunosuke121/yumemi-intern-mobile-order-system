@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tenant_id')->constrained('tenants');
             $table->integer('table_number');
-            $table->integer('total_amount')->default(0);
+            $table->integer('total_price')->default(0);
             $table->string('status', 10)->default('open');
             $table->timestamps();
         });
