@@ -17,7 +17,7 @@ class TenantSeeder extends Seeder
         DB::table('tenants')->insert([
             'id' => 1,
             'name' => 'test tenant1',
-            'email' => 'tenant1@test.com',
+            'email' => 'tenant1@example.com',
             'table_count' => 10,
         ]);
 
