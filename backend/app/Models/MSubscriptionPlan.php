@@ -9,6 +9,9 @@ class MSubscriptionPlan extends Model
 {
     use HasFactory;
 
+    const FREE_PLAN = 'free';
+    const PREMIUM_PLAN = 'premium';
+
     const BILLING_CYCLE_MONTHLY = 'monthly';
     const BILLING_CYCLE_ANNUAL = 'annual';
 
@@ -24,6 +27,7 @@ class MSubscriptionPlan extends Model
         'name',
         'price',
         'billing_cycle',
+        'max_table_count',
     ];
 
     protected $casts = [

@@ -28,4 +28,9 @@ class Staff extends Authenticatable
     protected $casts = [
         'deleted_at' => 'datetime',
     ];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }

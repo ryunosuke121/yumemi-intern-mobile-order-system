@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 10);
             $table->integer('price');
+            $table->integer('max_table_count');
             $table->string('billing_cycle', 10);
             $table->timestamps();
         });

@@ -22,4 +22,14 @@ class Subscription extends Model
         'end_date' => 'datetime',
         'next_billing_date' => 'datetime',
     ];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
+
+    public function subscriptionPlan()
+    {
+        return $this->belongsTo(MSubscriptionPlan::class);
+    }
 }

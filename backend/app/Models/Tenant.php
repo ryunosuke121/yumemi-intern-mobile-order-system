@@ -22,6 +22,17 @@ class Tenant extends Model
         'deleted_at' => 'datetime',
     ];
 
+    public function currentSubscriptionPlan()
+    {
+        $subscriptions = $this->subscriptions;
+        foreach ($subscriptions as $subscription) {
+            if ($subscription->start_date < now() && (is_null($subscription->end_date) || $subscription->end_date > now())) {
+                return $subscription->subscriptionPlan;
+            }
+        }
+        return null;
+    }
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);

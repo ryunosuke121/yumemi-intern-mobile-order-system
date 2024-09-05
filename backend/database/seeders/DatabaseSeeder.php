@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //TenantSeederを実行
-        $this->call(TenantSeeder::class);
+        $seeders = [TenantSeeder::class, SubscriptionPlanSeeder::class];
+        foreach ($seeders as $seeder) {
+            $this->call($seeder);
+        }
     }
 }
