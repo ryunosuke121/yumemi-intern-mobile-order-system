@@ -24,7 +24,7 @@ class TenantSeeder extends Seeder
         DB::table('staffs')->insert([
             'tenant_id' => 1,
             'name' => 'test staff1',
-            'email' => 'staff1@test.com',
+            'email' => 'staff1@example.com',
             'password_hash' => Hash::make('password'),
         ]);
     }
