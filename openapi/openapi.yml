@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: "mobile-order-system"
+  version: "1.0.0"
+paths:
+  /login:
+    post:
+      summary: "Login"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: "Unauthorized"
+  /setting/tables:
+    put:
+      summary: "update table count"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                new_table_count:
+                  type: integer
+      responses:
+        '200':
+          description: "OK"
+        '401':
+          description: "Unauthorized"
+        '422':
+          description: "Unprocessable Entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Cannot set table count higher than 20"
