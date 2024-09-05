@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
 
-class Staff extends Model
+class Staff extends Authenticatable
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, HasApiTokens, SoftDeletes;
+    
+    protected $table = 'staffs';
 
     protected $fillable = [
         'tenant_id',
@@ -17,6 +19,10 @@ class Staff extends Model
         'email',
         'password_hash',
         'deleted_at',
+    ];
+
+    protected $hidden = [
+        'password_hash',
     ];
 
     protected $casts = [
