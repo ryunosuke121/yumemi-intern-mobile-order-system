@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tenant extends Model
@@ -22,7 +23,7 @@ class Tenant extends Model
         'deleted_at' => 'datetime',
     ];
 
-    public function currentSubscriptionPlan()
+    public function currentSubscriptionPlan(): ?MSubscriptionPlan
     {
         $subscriptions = $this->subscriptions;
         foreach ($subscriptions as $subscription) {
@@ -33,22 +34,22 @@ class Tenant extends Model
         return null;
     }
 
-    public function subscriptions()
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class);
     }
 
-    public function staffs()
+    public function staffs(): HasMany
     {
         return $this->hasMany(Staff::class);
     }
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
