@@ -59,3 +59,65 @@ paths:
                   message:
                     type: string
                     example: "Cannot set table count higher than 20"
+  /setting/items:
+    post:
+      summary: "add new item"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+                - price
+                - image
+                - cost_price
+                - tax_rate_id
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                image:
+                  type: string
+                  format: binary
+                cost_price:
+                  type: number
+                tax_rate_id:
+                  type: integer
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      price:
+                        type: number
+                      s3_key:
+                        type: string
+                      cost_price:
+                        type: number
+                      tax_rate_id:
+                        type: integer
+        '401':
+          description: "Unauthorized"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "ファイルのアップロードに失敗しました"
+          
