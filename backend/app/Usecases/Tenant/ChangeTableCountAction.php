@@ -2,7 +2,7 @@
 
 namespace App\Usecases\Tenant;
 
-use App\Const\MessageConst;
+use App\Constants\MessageConst;
 use App\Models\MSubscriptionPlan;
 use App\Models\Tenant;
 use App\Usecases\Tenant\Exceptions\PlanLimitExceededException;

@@ -1,8 +1,8 @@
 <?php
-
 declare(strict_types=1);
 
-namespace App\Const;
+namespace App\Constants;
+
 
 class MessageConst
 {
@@ -12,7 +12,7 @@ class MessageConst
     public static function generateMessage(string $message, array $params = []): string
     {
         foreach ($params as $key => $value) {
-            $message = str_replace(":$key", $value, $message);
+            $message = str_replace(":$key", (string)$value, $message);
         }
         return $message;
     }
