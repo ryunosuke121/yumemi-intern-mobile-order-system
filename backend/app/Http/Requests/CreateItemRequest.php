@@ -25,7 +25,7 @@ class CreateItemRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:30'],
             'description' => ['required', 'string', 'max:255'],
-            'image' => ['required', 'file', 'mimes:jpg,jpeg,png'],
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'cost_price' => ['required', 'integer'],
             'tax_rate_id' => ['required', 'integer', 'exists:m_tax_rates,id'],
         ];
