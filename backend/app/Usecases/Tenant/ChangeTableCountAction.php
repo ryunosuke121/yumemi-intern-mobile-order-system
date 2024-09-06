@@ -11,7 +11,6 @@ class ChangeTableCountAction
 {
     public function __invoke(Tenant $tenant, int $newTableCount): void
     {
-        assert($tenant->exists);
         if($tenant->currentSubscriptionPlan() === null) {
             throw new PlanLimitExceededException(MessageConst::PLAN_NOT_SUBSCRIBED);
         }
