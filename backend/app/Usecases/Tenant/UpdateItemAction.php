@@ -19,7 +19,7 @@ class UpdateItemAction
 
         if($newImage) {
             // 古い画像を削除
-            if($item->s3_key) {
+            if($item->s3_key !== null) {
                 Storage::disk('s3')->delete($item->s3_key);
             }
 
