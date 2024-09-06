@@ -148,6 +148,25 @@ paths:
                   message:
                     type: string
                     example: "ファイルのアップロードに失敗しました"
+    delete:
+      summary: "delete item"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "OK"
+        '401':
+          description: "Unauthorized"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:

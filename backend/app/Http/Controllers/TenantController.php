@@ -8,7 +8,9 @@ use App\Http\Requests\UpdateItemRequest;
 use App\Http\Resources\ItemResource;
 use App\Usecases\Tenant\ChangeTableCountAction;
 use App\Usecases\Tenant\CreateItemAction;
+use App\Usecases\Tenant\DeleteItemAction;
 use App\Usecases\Tenant\UpdateItemAction;
+use Illuminate\Http\Request;
 
 class TenantController extends Controller
 {
@@ -32,5 +34,11 @@ class TenantController extends Controller
         $image = $request->file('image');
 
         return new ItemResource($action($tenant, $itemID, $newItem, $image));
+    }
+
+    public function deleteItem(Request $request, DeleteItemAction $action): void {
+        $tenant = $request->user()->tenant;
+        $itemID = $request->route('id');
+        $action($tenant, $itemID);
     }
 }
