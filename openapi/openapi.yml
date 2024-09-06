@@ -91,23 +91,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      name:
-                        type: string
-                      price:
-                        type: integer
-                      s3_key:
-                        type: string
-                      cost_price:
-                        type: integer
-                      tax_rate_id:
-                        type: integer
+                $ref: "#/components/schemas/Item"
         '401':
           description: "Unauthorized"
         '500':
@@ -120,4 +104,76 @@ paths:
                   message:
                     type: string
                     example: "ファイルのアップロードに失敗しました"
+  /setting/items/{id}:
+    patch:
+      summary: "update item"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: integer
+                cost_price:
+                  type: integer
+                tax_rate_id:
+                  type: integer
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+        '401':
+          description: "Unauthorized"
+        '404':
+          description: "Not Found"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "ファイルのアップロードに失敗しました"
+
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: integer
+        s3_key:
+          type: string
+        cost_price:
+          type: integer
+        tax_rate_id:
+          type: integer
+    Error:
+      type: object
+      properties:
+        message:
+          type: string  
           
