@@ -77,12 +77,12 @@ paths:
                 name:
                   type: string
                 price:
-                  type: number
+                  type: integer
                 image:
                   type: string
                   format: binary
                 cost_price:
-                  type: number
+                  type: integer
                 tax_rate_id:
                   type: integer
       responses:
@@ -101,11 +101,11 @@ paths:
                       name:
                         type: string
                       price:
-                        type: number
+                        type: integer
                       s3_key:
                         type: string
                       cost_price:
-                        type: number
+                        type: integer
                       tax_rate_id:
                         type: integer
         '401':
