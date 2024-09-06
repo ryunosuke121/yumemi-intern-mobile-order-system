@@ -25,7 +25,7 @@ class CreateItemAction
             $filePath = $path . '/' . $fileName;
 
             $result = Storage::disk('s3')->put($filePath, file_get_contents($image), 'public');
-            if(!$result) {
+            if($result === false) {
                 throw new UploadFileFailedException(MessageConst::UPLOAD_FILE_FAILED);
             }
 
