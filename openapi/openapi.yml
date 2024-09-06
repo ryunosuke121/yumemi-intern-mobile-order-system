@@ -11,6 +11,9 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - email
+                - password
               properties:
                 email:
                   type: string
@@ -36,6 +39,8 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - new_table_count
               properties:
                 new_table_count:
                   type: integer
