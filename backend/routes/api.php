@@ -15,5 +15,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::group(['prefix' => '/setting'], function() {
         Route::put('/tables', [TenantController::class, 'changeTableCount']);
         Route::post('/items', [TenantController::class, 'createItem']);
+        Route::patch('/items/{id}', [TenantController::class, 'updateItem']);
     });
 });

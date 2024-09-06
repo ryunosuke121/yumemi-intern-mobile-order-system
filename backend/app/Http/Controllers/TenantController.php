@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateItemRequest;
 use App\Http\Requests\Tenant\ChangeTableCountRequest;
+use App\Http\Requests\UpdateItemRequest;
 use App\Http\Resources\ItemResource;
 use App\Usecases\Tenant\ChangeTableCountAction;
 use App\Usecases\Tenant\CreateItemAction;
+use App\Usecases\Tenant\UpdateItemAction;
 
 class TenantController extends Controller
 {
@@ -21,5 +23,14 @@ class TenantController extends Controller
         $image = $request->file('image');
 
         return new ItemResource($action($tenant, $item, $image));
+    }
+
+    public function updateItem(UpdateItemRequest $request, UpdateItemAction $action): ItemResource {
+        $tenant = $request->user()->tenant;
+        $itemID = $request->route('id');
+        $newItem = $request->makeItem();
+        $image = $request->file('image');
+
+        return new ItemResource($action($tenant, $itemID, $newItem, $image));
     }
 }
