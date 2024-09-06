@@ -3,6 +3,7 @@
 namespace App\Usecases\Tenant\Exceptions;
 
 use Exception;
+use Illuminate\Http\Response;
 
 class PlanLimitExceededException extends Exception
 {
@@ -10,6 +11,6 @@ class PlanLimitExceededException extends Exception
     {
         return response()->json([
             'message' => $this->getMessage(),
-        ], 422);
+        ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
