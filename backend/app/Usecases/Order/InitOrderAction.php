@@ -18,20 +18,18 @@ class InitOrderAction
             throw new TableIDInvalidException(MessageConst::TABLE_NUMBER_INVALID);
         }
 
-        $isExist = Order::where('tenant_id', $tenant->id)
+        $order = Order::where('tenant_id', $tenant->id)
             ->where('table_number', $tableNumber)
             ->where('status', Order::STATUS_OPEN)
-            ->exists();
+            ->first();
         
-        if ($isExist !== null) {
-            throw new ActiveOrderAlreadyExistException(MessageConst::ACTIVE_ORDER_ALREADY_EXIST);
+        if ($order === null) {
+            $order = Order::create([
+                'tenant_id' => $tenant->id,
+                'table_number' => $tableNumber,
+                'status' => Order::STATUS_OPEN,
+            ]);
         }
-
-        $order = Order::create([
-            'tenant_id' => $tenant->id,
-            'table_number' => $tableNumber,
-            'status' => Order::STATUS_OPEN,
-        ]);
 
         $token = $this->createToken($tenant->id, $order->id);
         // QRコードのURL
@@ -49,6 +47,7 @@ class InitOrderAction
         $data = [  
             'tenant_id' => $tenantID,
             'order_id' => $orderID,
+            'exp' => time() + 60 * 60 * 24,
         ];
 
         $token = JWT::encode($data, config('jwt.secret'), 'HS256');
