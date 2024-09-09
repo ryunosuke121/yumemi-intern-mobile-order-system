@@ -21,7 +21,7 @@ class InitOrderAction
         $isExist = Order::where('tenant_id', $tenant->id)
             ->where('table_number', $tableNumber)
             ->where('status', Order::STATUS_OPEN)
-            ->first();
+            ->exists();
         
         if ($isExist !== null) {
             throw new ActiveOrderAlreadyExistException(MessageConst::ACTIVE_ORDER_ALREADY_EXIST);
