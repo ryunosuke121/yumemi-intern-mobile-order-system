@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Usecases\Order\Exceptions\ItemNotFoundException;
 use App\Usecases\Order\Exceptions\OrderNotFoundException;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 final class TakeOrderItemAction
@@ -21,7 +22,7 @@ final class TakeOrderItemAction
             ->where('id', $orderID)
             ->where('status', Order::STATUS_OPEN)
             ->exists();
-        if (!$isOrderOpen) {
+        if (! $isOrderOpen) {
             throw new OrderNotFoundException(MessageConst::ORDER_NOT_FOUND);
         }
 
@@ -47,7 +48,7 @@ final class TakeOrderItemAction
 
             DB::commit();
             return $orderItems;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }

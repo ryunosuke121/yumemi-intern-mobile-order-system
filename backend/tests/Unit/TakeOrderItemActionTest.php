@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use App\Models\Item;
@@ -10,8 +12,9 @@ use App\Models\Tenant;
 use App\Usecases\Order\TakeOrderItemAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use function count;
 
-class TakeOrderItemActionTest extends TestCase
+final class TakeOrderItemActionTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -50,12 +53,12 @@ class TakeOrderItemActionTest extends TestCase
         $action = new TakeOrderItemAction();
         $orderItems = $action($tenant->id, $order->id, [$orderItem]);
 
-        $this->assertEquals(1, count($orderItems));
-        $this->assertEquals($item->id, $orderItems[0]->item_id);
-        $this->assertEquals(2, $orderItems[0]->quantity);
-        $this->assertEquals($tax_rate->tax_rate, $orderItems[0]->tax_rate);
-        $this->assertEquals($item->cost_price, $orderItems[0]->cost_price);
-        $this->assertEquals(2000, $orderItems[0]->sub_total);
-        $this->assertEquals(OrderItem::STATUS_PENDING, $orderItems[0]->status);
+        $this->assertSame(1, count($orderItems));
+        $this->assertSame($item->id, $orderItems[0]->item_id);
+        $this->assertSame(2, $orderItems[0]->quantity);
+        $this->assertSame($tax_rate->tax_rate, $orderItems[0]->tax_rate);
+        $this->assertSame($item->cost_price, $orderItems[0]->cost_price);
+        $this->assertSame(2000, $orderItems[0]->sub_total);
+        $this->assertSame(OrderItem::STATUS_PENDING, $orderItems[0]->status);
     }
 }
