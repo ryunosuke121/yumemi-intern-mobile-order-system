@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Usecases\Order;
 
 use App\Constants\MessageConst;
 use App\Models\Order;
 use App\Models\Tenant;
-use App\Usecases\Order\Exceptions\ActiveOrderAlreadyExistException;
-use App\Usecases\Order\Exceptions\CreateTokenFailedException;
 use App\Usecases\Order\Exceptions\TableIDInvalidException;
 use Firebase\JWT\JWT;
 
-class InitOrderAction
+final class InitOrderAction
 {
     public function __invoke(Tenant $tenant, int $tableNumber): array
     {

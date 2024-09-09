@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Usecases\Order\Exceptions;
 
 use Exception;
 
-class CreateTokenFailedException extends Exception
+final class CreateTokenFailedException extends Exception
 {
     public function render($request)
     {

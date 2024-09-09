@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Usecases\Order\Exceptions;
 
+use Exception;
 use Illuminate\Http\Response;
 
-class ActiveOrderAlreadyExistException extends \Exception
+final class ActiveOrderAlreadyExistException extends Exception
 {
     public function render($request)
     {
