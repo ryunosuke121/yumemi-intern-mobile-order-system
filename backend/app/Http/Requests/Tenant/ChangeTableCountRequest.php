@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Tenant;
 
 use App\Http\Requests\ApiRequest;
 
-class ChangeTableCountRequest extends ApiRequest
+final class ChangeTableCountRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
