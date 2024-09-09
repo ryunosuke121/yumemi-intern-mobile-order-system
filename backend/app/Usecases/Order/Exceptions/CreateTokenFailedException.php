@@ -10,6 +10,6 @@ class CreateTokenFailedException extends Exception
     {
         return response()->json([
             'message' => $this->getMessage(),
-        ], 500);
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }
