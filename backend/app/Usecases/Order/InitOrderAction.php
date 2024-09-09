@@ -14,7 +14,7 @@ class InitOrderAction
 {
     public function __invoke(Tenant $tenant, int $tableNumber): array
     {
-        if ($tableNumber > $tenant->table_count) {
+        if ($tableNumber > $tenant->table_count || $tableNumber <= 0) {
             throw new TableIDInvalidException(MessageConst::TABLE_NUMBER_INVALID);
         }
 
