@@ -23,7 +23,7 @@ class InitOrderAction
             ->where('status', Order::STATUS_OPEN)
             ->first();
         
-        if ($isExist) {
+        if ($isExist !== null) {
             throw new ActiveOrderAlreadyExistException(MessageConst::ACTIVE_ORDER_ALREADY_EXIST);
         }
 
