@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Usecases\Tenant\Exceptions;
 
 use Exception;
 use Illuminate\Http\Response;
 
-class ItemNotFoundException extends Exception
+final class ItemNotFoundException extends Exception
 {
     public function render($request)
     {

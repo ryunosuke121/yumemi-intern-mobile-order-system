@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Usecases\Tenant;
 
 use App\Constants\MessageConst;
@@ -7,11 +9,10 @@ use App\Models\Item;
 use App\Models\Tenant;
 use App\Usecases\Tenant\Exceptions\UploadFileFailedException;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class UpdateItemAction
+final class UpdateItemAction
 {
     public function __invoke(Tenant $tenant, int $itemID, Item $newItem, ?UploadedFile $newImage): Item
     {

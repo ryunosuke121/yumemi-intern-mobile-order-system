@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -11,7 +13,7 @@ abstract class ApiRequest extends FormRequest
     /**
      * Handle a failed validation attempt.
      *
-     * @param  Validator  $validator
+     * @param Validator $validator
      * @return void
      *
      * @throws HttpResponseException

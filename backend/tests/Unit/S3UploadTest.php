@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
-use Illuminate\Support\Facades\Config;
 use PHPUnit\Framework\TestCase;
 
-class S3UploadTest extends TestCase
+final class S3UploadTest extends TestCase
 {
     /**
      * A basic unit test example.

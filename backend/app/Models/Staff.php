@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Staff extends Authenticatable
+final class Staff extends Authenticatable
 {
-    use HasFactory, HasApiTokens, SoftDeletes;
+    use HasApiTokens, HasFactory, SoftDeletes;
     
     protected $table = 'staffs';
 

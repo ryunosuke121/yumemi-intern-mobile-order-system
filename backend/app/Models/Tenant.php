@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tenant extends Model
+final class Tenant extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -27,7 +29,7 @@ class Tenant extends Model
     {
         $subscriptions = $this->subscriptions;
         foreach ($subscriptions as $subscription) {
-            if ($subscription->start_date < now() && (is_null($subscription->end_date) || $subscription->end_date > now())) {
+            if ($subscription->start_date < now() && (null === $subscription->end_date || $subscription->end_date > now())) {
                 return $subscription->subscriptionPlan;
             }
         }

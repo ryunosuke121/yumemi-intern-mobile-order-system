@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateItemRequest;
@@ -12,7 +14,7 @@ use App\Usecases\Tenant\DeleteItemAction;
 use App\Usecases\Tenant\UpdateItemAction;
 use Illuminate\Http\Request;
 
-class TenantController extends Controller
+final class TenantController extends Controller
 {
     public function changeTableCount(ChangeTableCountRequest $request, ChangeTableCountAction $action): void {
         $tenant = $request->user()->tenant;

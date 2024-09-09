@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Usecases\Tenant;
 
 use App\Constants\MessageConst;
-use App\Models\MSubscriptionPlan;
 use App\Models\Tenant;
 use App\Usecases\Tenant\Exceptions\PlanLimitExceededException;
 
-class ChangeTableCountAction
+final class ChangeTableCountAction
 {
     public function __invoke(Tenant $tenant, int $newTableCount): void
     {
