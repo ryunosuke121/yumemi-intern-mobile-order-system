@@ -12,7 +12,7 @@ final class ItemController extends Controller
 {
     public function listItems(Request $request, ListItemAction $action): array
     {
-        $tenantID = $request->query('tenant_id');
+        $tenantID = $request->input('tenant_id');
         $items = $action($tenantID);
 
         $resources = [];

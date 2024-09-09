@@ -30,4 +30,14 @@ final class OrderItem extends Model
         'quantity' => 'integer',
         'sub_total' => 'integer',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

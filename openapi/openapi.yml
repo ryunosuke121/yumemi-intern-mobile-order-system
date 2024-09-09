@@ -167,6 +167,106 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /orders:
+    post:
+      summary: "initialize order"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - table_number
+              properties:
+                table_number:
+                  type: integer
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  order:
+                    $ref: "#/components/schemas/Order"
+                  pageURL:
+                    type: string
+        '401':
+          description: "Unauthorized"
+        '422':
+          description: "Unprocessable Entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "テーブル番号が無効です"
+
+  /items:
+    get:
+      summary: "get items"
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Item"
+        '401':
+          description: "Unauthorized"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal Server Error"
+  /orders/items:
+    post:
+      summary: "add item to order"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      quantity:
+                        type: integer
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    $ref: "#/components/schemas/OrderItem"
+        '401':
+          description: "Unauthorized"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
@@ -175,6 +275,7 @@ components:
       properties:
         token:
           type: string
+
     Item:
       type: object
       properties:
@@ -182,14 +283,45 @@ components:
           type: integer
         name:
           type: string
-        price:
-          type: integer
-        s3_key:
+        description:
+          type: string
+        image_url:
           type: string
         cost_price:
           type: integer
         tax_rate_id:
           type: integer
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        table_number:
+          type: integer
+        total_price:
+          type: integer
+        status:
+          type: string
+    
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        item:
+          $ref: "#/components/schemas/Item"
+        quantity:
+          type: integer
+        cost_price:
+          type: integer
+        tax_rate:
+          type: integer
+        sub_total:
+          type: integer
+        order_id:
+          type: integer
+        
     Error:
       type: object
       properties:

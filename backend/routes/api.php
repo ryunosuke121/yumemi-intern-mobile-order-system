@@ -14,6 +14,7 @@ Route::post('/login', [AuthController::class, 'login']);
 // JWTトークンが必要なAPI
 Route::middleware(EnsureJWTIsValid::class)->group(static function () {
     Route::get('/items', [ItemController::class, 'listItems']);
+    Route::post('/orders/items', [OrderController::class, 'takeOrderItem']);
 });
 
 // ログイン認証が必要なAPI

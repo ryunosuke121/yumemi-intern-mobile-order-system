@@ -13,11 +13,11 @@ final class MTaxRate extends Model
 
     protected $fillable = [
         'name',
-        'rate',
+        'tax_rate',
     ];
 
     protected $casts = [
-        'rate' => 'float',
+        'tax_rate' => 'float',
     ];
 
     public function items()
