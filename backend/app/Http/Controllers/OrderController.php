@@ -48,16 +48,13 @@ final class OrderController extends Controller
         $tableNumber = $request->query('table_number') ? (int) ($request->query('table_number')) : null;
 
         if($orderID !== null) {
-            $order = $getOrderByIDAction($tenant, $orderID);
-            return new OrderResource($order);
-        }
-        
-        if($tableNumber !== null) {
-            $order = $getOpenOrderByTableNumberAction($tenant, $tableNumber);
-            return new OrderResource($order);
+            $orders = $getOrderByIDAction($tenant, $orderID);
+        } elseif($tableNumber !== null) {
+            $orders = $getOpenOrderByTableNumberAction($tenant, $tableNumber);
+        } else {
+            $orders = $getOpenOrdersAllAction($tenant);
         }
 
-        $orders = $getOpenOrdersAllAction($tenant);
         $resources = [];
         foreach ($orders as $order) {
             $resources[] = new OrderResource($order);

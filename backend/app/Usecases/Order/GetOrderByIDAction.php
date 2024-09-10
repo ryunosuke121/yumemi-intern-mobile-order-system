@@ -11,7 +11,7 @@ use App\Usecases\Order\Exceptions\OrderNotFoundException;
 
 final class GetOrderByIDAction
 {
-    public function __invoke(Tenant $tenant, int $orderID): Order
+    public function __invoke(Tenant $tenant, int $orderID): array
     {
         $order = Order::where('tenant_id', $tenant->id)
             ->where('id', $orderID)
@@ -21,6 +21,6 @@ final class GetOrderByIDAction
             throw new OrderNotFoundException(MessageConst::ORDER_NOT_FOUND);
         }
 
-        return $order;
+        return [$order];
     }
 }
