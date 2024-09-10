@@ -7,7 +7,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Order\InitOrderRequest;
 use App\Http\Requests\TakeOrderItemRequest;
 use App\Http\Resources\OrderItemResource;
-use App\Usecases\Order\GetTableOrderItemsAction;
+use App\Http\Resources\OrderResource;
+use App\Usecases\Order\GetOpenOrderByTableNumberAction;
+use App\Usecases\Order\GetOpenOrdersAllAction;
+use App\Usecases\Order\GetOrderByIDAction;
 use App\Usecases\Order\InitOrderAction;
 use App\Usecases\Order\TakeOrderItemAction;
 use Illuminate\Http\Request;
@@ -34,15 +37,30 @@ final class OrderController extends Controller
         return $resources;
     }
 
-    public function getTableOrderItems(Request $request, GetTableOrderItemsAction $action): array {
+    public function getTableOrderItems(
+        Request $request,
+        GetOrderByIDAction $getOrderByIDAction,
+        GetOpenOrderByTableNumberAction $getOpenOrderByTableNumberAction,
+        GetOpenOrdersAllAction $getOpenOrdersAllAction
+    ): array | OrderResource {
         $tenant = $request->user()->tenant;
-        $orderID = $request->route('id');
+        $orderID = $request->query('order_id') ? (int) ($request->query('order_id')) : null;
+        $tableNumber = $request->query('table_number') ? (int) ($request->query('table_number')) : null;
 
-        $orderItems = $action($tenant, intval($orderID));
+        if($orderID !== null) {
+            $order = $getOrderByIDAction($tenant, $orderID);
+            return new OrderResource($order);
+        }
+        
+        if($tableNumber !== null) {
+            $order = $getOpenOrderByTableNumberAction($tenant, $tableNumber);
+            return new OrderResource($order);
+        }
 
+        $orders = $getOpenOrdersAllAction($tenant);
         $resources = [];
-        foreach ($orderItems as $orderItem) {
-            $resources[] = new OrderItemResource($orderItem);
+        foreach ($orders as $order) {
+            $resources[] = new OrderResource($order);
         }
         return $resources;
     }

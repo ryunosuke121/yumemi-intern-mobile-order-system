@@ -8,11 +8,10 @@ use App\Constants\MessageConst;
 use App\Models\Order;
 use App\Models\Tenant;
 use App\Usecases\Order\Exceptions\OrderNotFoundException;
-use Illuminate\Database\Eloquent\Collection;
 
-final class GetTableOrderItemsAction
+final class GetOrderByIDAction
 {
-    public function __invoke(Tenant $tenant, int $orderID): Collection
+    public function __invoke(Tenant $tenant, int $orderID): Order
     {
         $order = Order::where('tenant_id', $tenant->id)
             ->where('id', $orderID)
@@ -22,6 +21,6 @@ final class GetTableOrderItemsAction
             throw new OrderNotFoundException(MessageConst::ORDER_NOT_FOUND);
         }
 
-        return $order->order_items;
+        return $order;
     }
 }
