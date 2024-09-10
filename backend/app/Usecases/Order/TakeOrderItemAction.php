@@ -22,7 +22,7 @@ final class TakeOrderItemAction
             ->where('id', $orderID)
             ->where('status', Order::STATUS_OPEN)
             ->exists();
-        if (! $isOrderOpen) {
+        if ($isOrderOpen === false) {
             throw new OrderNotFoundException(MessageConst::ORDER_NOT_FOUND);
         }
 
