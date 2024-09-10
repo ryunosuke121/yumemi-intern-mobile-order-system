@@ -13,6 +13,7 @@ final class MessageConst
     public const TABLE_NUMBER_INVALID = 'テーブル番号が無効です';
     public const ACTIVE_ORDER_ALREADY_EXIST = '既にオーダーが存在しています';
     public const ORDER_NOT_FOUND = 'オーダーが見つかりません';
+    public const ORDER_ITEM_NOT_FOUND = 'オーダーアイテムが見つかりません';
 
     public static function generateMessage(string $message, array $params = []): string
     {

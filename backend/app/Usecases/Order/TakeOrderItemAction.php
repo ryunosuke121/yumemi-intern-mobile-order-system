@@ -26,7 +26,6 @@ final class TakeOrderItemAction
             throw new OrderNotFoundException(MessageConst::ORDER_NOT_FOUND);
         }
 
-        $totalPrice = $order->total_price;
         DB::beginTransaction();
         try{
             foreach ($orderItems as $orderItem) {
@@ -42,14 +41,12 @@ final class TakeOrderItemAction
                 $orderItem->order_id = $orderID;
                 $orderItem->tax_rate = $item->taxRate->tax_rate;
                 $orderItem->cost_price = $item->cost_price;
-                $orderItem->sub_total = floor($item->cost_price * $orderItem->quantity);
+                $orderItem->sub_total = floor($item->cost_price * $orderItem->quantity * $orderItem->tax_rate);
                 $orderItem->status = OrderItem::STATUS_PENDING;
                 $orderItem->save();
-
-                $totalPrice += $orderItem->sub_total;
             }
 
-            $order->total_price = $totalPrice;
+            $order->total_price = $order->order_items->sum('sub_total');
             $order->save();
             DB::commit();
             return $orderItems;

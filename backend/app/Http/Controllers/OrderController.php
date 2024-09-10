@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Order\UpdateOrderItemRequest;
 use App\Http\Requests\Order\InitOrderRequest;
 use App\Http\Requests\TakeOrderItemRequest;
 use App\Http\Resources\OrderItemResource;
@@ -13,6 +14,7 @@ use App\Usecases\Order\GetOpenOrdersAllAction;
 use App\Usecases\Order\GetOrderByIDAction;
 use App\Usecases\Order\InitOrderAction;
 use App\Usecases\Order\TakeOrderItemAction;
+use App\Usecases\Order\UpdateOrderItemAction;
 use Illuminate\Http\Request;
 
 final class OrderController extends Controller
@@ -60,5 +62,17 @@ final class OrderController extends Controller
             $resources[] = new OrderResource($order);
         }
         return $resources;
+    }
+
+    public function updateOrderItem(
+        UpdateOrderItemRequest $request,
+        UpdateOrderItemAction $action
+    ): OrderItemResource {
+        $tenant = $request->user()->tenant;
+        $orderID = $request->route('order_id') ? (int) ($request->route('order_id')) : null;
+        $orderItemID = $request->route('order_item_id') ? (int) ($request->route('order_item_id')) : null;
+
+        $orderItem = $action($tenant, $orderID, $orderItemID, $request->makeOrderItem());
+        return new OrderItemResource($orderItem);
     }
 }
