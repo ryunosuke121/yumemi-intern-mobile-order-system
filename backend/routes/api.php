@@ -28,5 +28,6 @@ Route::middleware('auth:sanctum')->group(static function() {
 
     Route::group(['prefix' => '/orders'], static function() {
         Route::post('', [OrderController::class, 'initializeOrder']);
+        Route::get('/{id}', [OrderController::class, 'getTableOrderItems']);
     });
 });
