@@ -18,14 +18,15 @@ final class TakeOrderItemAction
     public function __invoke(int $tenantID, int $orderID, array $orderItems): array
     {
         // オーダーが未会計かどうかを確認
-        $isOrderOpen = Order::where('tenant_id', $tenantID)
+        $order = Order::where('tenant_id', $tenantID)
             ->where('id', $orderID)
             ->where('status', Order::STATUS_OPEN)
-            ->exists();
-        if ($isOrderOpen === false) {
+            ->first();
+        if ($order === null) {
             throw new OrderNotFoundException(MessageConst::ORDER_NOT_FOUND);
         }
 
+        $totalPrice = $order->total_price;
         DB::beginTransaction();
         try{
             foreach ($orderItems as $orderItem) {
@@ -44,8 +45,12 @@ final class TakeOrderItemAction
                 $orderItem->sub_total = floor($item->cost_price * $orderItem->quantity);
                 $orderItem->status = OrderItem::STATUS_PENDING;
                 $orderItem->save();
+
+                $totalPrice += $orderItem->sub_total;
             }
 
+            $order->total_price = $totalPrice;
+            $order->save();
             DB::commit();
             return $orderItems;
         } catch (Exception $e) {
