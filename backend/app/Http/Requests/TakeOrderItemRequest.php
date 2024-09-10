@@ -26,7 +26,6 @@ final class TakeOrderItemRequest extends FormRequest
     {
         return [
             'items' => ['required', 'array'],
-
             'items.*.id' => ['integer', 'exists:items,id'],
             'items.*.quantity' => ['integer', 'min:1'],
         ];
