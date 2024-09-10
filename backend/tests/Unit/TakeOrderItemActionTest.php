@@ -12,7 +12,6 @@ use App\Models\Tenant;
 use App\Usecases\Order\TakeOrderItemAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use function count;
 
 final class TakeOrderItemActionTest extends TestCase
 {
