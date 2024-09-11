@@ -15,7 +15,8 @@ final class UpdateOrderItemAction
 {
     public function __invoke(Tenant $tenant, int $orderID, int $orderItemID, OrderItem $newOrderItem): OrderItem
     {
-        $orderItem = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
+        $orderItem = OrderItem::select('order_items.*', 'order_items.id as id')
+            ->join('orders', 'order_items.order_id', '=', 'orders.id')
             ->where('orders.tenant_id', $tenant->id)
             ->where('order_items.id', $orderItemID)
             ->where('order_items.order_id', $orderID)
