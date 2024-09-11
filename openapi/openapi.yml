@@ -245,6 +245,12 @@ paths:
   /items:
     get:
       summary: "get items"
+      parameters:
+        - name: token
+          in: query
+          schema:
+            type: string
+          required: true
       responses:
         '200':
           description: "OK"
@@ -269,6 +275,12 @@ paths:
   /orders/items:
     post:
       summary: "add item to order"
+      parameters:
+        - name: token
+          in: query
+          schema:
+            type: string
+          required: true
       requestBody:
         content:
           application/json:
@@ -332,6 +344,103 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /checkout:
+    get:
+      summary: "get checkout order"
+      parameters:
+        - name: token
+          in: query
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    $ref: "#/components/schemas/Order"
+                  pending_items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Item"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "会計済みのオーダーです"
+        '401':
+          description: "Unauthorized"
+        '403':
+          description: "Forbidden"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: "checkout order"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - order_id
+              properties:
+                order_id:
+                  type: integer
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order:
+                    $ref: "#/components/schemas/Order"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "会計済みのオーダーです"
+        '401':
+          description: "Unauthorized"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '422':
+          description: "Unprocessable Entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "未提供の商品があります"
+                  pending_items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Item"
 
 components:
   schemas:

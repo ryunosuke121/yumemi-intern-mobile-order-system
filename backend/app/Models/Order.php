@@ -26,6 +26,19 @@ final class Order extends Model
         'total_price' => 'integer',
     ];
 
+    public function update_total_price(): void
+    {
+        $total_price = 0;
+        foreach ($this->order_items as $order_item) {
+            if ($order_item->status === OrderItem::STATUS_CANCELLED) {
+                continue;
+            }
+            $total_price += $order_item->sub_total;
+        }
+        $this->total_price = $total_price;
+        $this->save();
+    }
+
     public function tenant()
     {
         return $this->belongsTo(Tenant::class);

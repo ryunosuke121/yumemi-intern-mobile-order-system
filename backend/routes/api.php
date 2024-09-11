@@ -31,4 +31,10 @@ Route::middleware('auth:sanctum')->group(static function() {
         Route::get('', [OrderController::class, 'getTableOrderItems']);
         Route::put('/{order_id}/items/{order_item_id}', [OrderController::class, 'updateOrderItem']);
     });
+    Route::post('/checkout', [OrderController::class, 'checkout']);
+});
+
+// JWTトークンとログイン認証が必要なAPI
+Route::middleware(['auth:sanctum', EnsureJWTIsValid::class])->group(static function() {
+    Route::get('/checkout', [OrderController::class, 'getCheckout']);
 });

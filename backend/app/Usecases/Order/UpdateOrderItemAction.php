@@ -30,13 +30,10 @@ final class UpdateOrderItemAction
                 $orderItem->quantity = $newOrderItem->quantity;
                 $orderItem->sub_total = $orderItem->item->cost_price * $newOrderItem->quantity * $orderItem->tax_rate;
                 $orderItem->save();
-    
-                $order = $orderItem->order;
-                $order->total_price = $order->order_items->sum('sub_total');
-                $order->save();
             }
-    
+
             $orderItem->update($newOrderItem->toArray());
+            $orderItem->order->update_total_price();
             DB::commit();
             return $orderItem;
         } catch (Exception $e) {

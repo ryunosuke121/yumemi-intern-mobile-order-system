@@ -14,6 +14,8 @@ final class MessageConst
     public const ACTIVE_ORDER_ALREADY_EXIST = '既にオーダーが存在しています';
     public const ORDER_NOT_FOUND = 'オーダーが見つかりません';
     public const ORDER_ITEM_NOT_FOUND = 'オーダーアイテムが見つかりません';
+    public const ORDER_ALREADY_PAID = 'オーダーは既に支払済みです';
+    public const PENDING_ITEMS_EXIST = '未提供の商品が存在します';
 
     public static function generateMessage(string $message, array $params = []): string
     {

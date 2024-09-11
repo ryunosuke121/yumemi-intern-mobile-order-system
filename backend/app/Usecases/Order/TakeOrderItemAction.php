@@ -46,8 +46,7 @@ final class TakeOrderItemAction
                 $orderItem->save();
             }
 
-            $order->total_price = $order->order_items->sum('sub_total');
-            $order->save();
+            $order->update_total_price();
             DB::commit();
             return $orderItems;
         } catch (Exception $e) {
