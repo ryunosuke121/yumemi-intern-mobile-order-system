@@ -14,7 +14,6 @@ use App\Usecases\Tenant\ChangeTableCountAction;
 use App\Usecases\Tenant\CreateItemAction;
 use App\Usecases\Tenant\DeleteItemAction;
 use App\Usecases\Tenant\UpdateItemAction;
-use Exception;
 use Illuminate\Http\Request;
 
 final class TenantController extends Controller

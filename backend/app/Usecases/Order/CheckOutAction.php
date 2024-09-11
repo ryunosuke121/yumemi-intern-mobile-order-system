@@ -11,8 +11,9 @@ use App\Models\Tenant;
 use App\Usecases\Order\Exceptions\OrderAlreadyPaidException;
 use App\Usecases\Order\Exceptions\OrderNotFoundException;
 use App\Usecases\Order\Exceptions\PendingItemsExistException;
+use function count;
 
-final class CheckoutAction
+final class CheckOutAction
 {
     public function __invoke(Tenant $tenant, int $orderID): Order
     {
