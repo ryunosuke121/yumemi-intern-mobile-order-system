@@ -27,7 +27,7 @@ final class CreateItemAction
             $fileName = $uniqueId . '.' . $extension;
             $filePath = $path . '/' . $fileName;
 
-            $result = Storage::disk('s3')->put($filePath, $image->getContent(), 'public');
+            $result = Storage::disk('s3')->put($filePath, $image->getContent());
             if($result === false) {
                 throw new UploadFileFailedException(MessageConst::UPLOAD_FILE_FAILED);
             }
