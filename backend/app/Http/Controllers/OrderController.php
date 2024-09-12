@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Order\CheckOutRequest;
 use App\Events\OrderEvent;
+use App\Http\Requests\Order\CheckOutRequest;
 use App\Http\Requests\Order\InitOrderRequest;
 use App\Http\Requests\Order\UpdateOrderItemRequest;
 use App\Http\Requests\TakeOrderItemRequest;

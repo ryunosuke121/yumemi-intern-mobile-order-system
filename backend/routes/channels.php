@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\OrderItem;
+declare(strict_types=1);
+
 use App\Models\Staff;
-use App\Models\Tenant;
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('tenants.{tenantID}', function (Staff $staff, int $tenantID) {
+Broadcast::channel('tenants.{tenantID}', static function (Staff $staff, int $tenantID) {
     return $staff->tenant_id === $tenantID;
 });
