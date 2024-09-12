@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: ./deploy/docker/Dockerfile
+    env_file:
+      - .env.production
+    image: 280107060642.dkr.ecr.ap-northeast-1.amazonaws.com/r_ito/mobile-order:latest
+    ports:
+      - '80:80'
+      - '8080:8000'
+      - '9000:9000'
+  mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: admin
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: mobile-order-db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'prd-mysql:/var/lib/mysql'
+volumes:
+    prd-mysql:
+        driver: local
