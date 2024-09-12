@@ -69,14 +69,14 @@ paths:
               type: object
               required:
                 - name
-                - price
+                - description
                 - image
                 - cost_price
                 - tax_rate_id
               properties:
                 name:
                   type: string
-                price:
+                description:
                   type: integer
                 image:
                   type: string
