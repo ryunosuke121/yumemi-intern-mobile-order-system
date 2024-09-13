@@ -50,6 +50,8 @@ COPY ./deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # ストレージリンクの作成とキャッシュの最適化
 RUN php artisan storage:link && php artisan config:cache && php artisan route:cache
 
+RUN chown -R www-data:www-data /var/www/html/storage
+
 # ポートのエクスポート
 EXPOSE 80
 
