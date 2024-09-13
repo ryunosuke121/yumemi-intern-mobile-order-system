@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Events\OrderEvent;
+use App\Events\OrderStatusChangedEvent;
 use App\Http\Requests\Order\CheckOutRequest;
 use App\Http\Requests\Order\InitOrderRequest;
 use App\Http\Requests\Order\UpdateOrderItemRequest;
@@ -79,6 +80,7 @@ final class OrderController extends Controller
         $orderItemID = $request->route('order_item_id') ? (int) ($request->route('order_item_id')) : null;
 
         $orderItem = $action($tenant, $orderID, $orderItemID, $request->makeOrderItem());
+        OrderStatusChangedEvent::dispatch($orderItem);
         return new OrderItemResource($orderItem);
     }
 
