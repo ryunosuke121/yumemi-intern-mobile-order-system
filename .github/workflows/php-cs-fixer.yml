@@ -20,5 +20,13 @@ jobs:
       - name: PHP-CS-Fixer Version
         run: ./backend/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --version
 
-      - name: PHP-CS-Fixer Dry Run
-        run: ./backend/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./backend/.php-cs-fixer.dist.php --verbose --dry-run
+      - name: PHP-CS-Fixer Run
+        run: ./backend/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./backend/.php-cs-fixer.dist.php --verbose
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Apply PHP-CS-Fixer"
+          git push origin HEAD:refs/heads/$GITHUB_HEAD_REF
